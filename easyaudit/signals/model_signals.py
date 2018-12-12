@@ -48,6 +48,9 @@ def pre_save(sender, instance, raw, using, update_fields, **kwargs):
     if raw:
       # Return if loading Fixtures      
       return
+    if instance.pk is None:
+        # avoid many to many errors
+        return
     
     try:
         with transaction.atomic():
